@@ -6,7 +6,7 @@ use FileHandle;
 
 while (<STDIN>)
 {
-	my $fh = new FileHandle("> $ENV{HOME}/.config/pianobar/ctl");
+	my $fh = FileHandle->new("$ENV{HOME}/.config/pianobar/ctl", O_WRONLY|O_APPEND);
 	$fh->print("$_");
 	$fh->close
 }
