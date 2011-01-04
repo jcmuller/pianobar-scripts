@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use FileHandle;
+
+while (<STDIN>)
+{
+	my $fh = new FileHandle("> $ENV{HOME}/.config/pianobar/ctl");
+	$fh->print("$_");
+	$fh->close
+}
