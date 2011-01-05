@@ -3,10 +3,28 @@
 use warnings;
 use strict;
 use FileHandle;
+use Term::ReadKey;
 
-while (<STDIN>)
+ReadMode 4;
+while (my $in = ReadKey(0))
 {
-	my $fh = FileHandle->new("$ENV{HOME}/.config/pianobar/ctl", O_WRONLY|O_APPEND);
-	$fh->print("$_");
-	$fh->close
+	# Exit this program on ^D or q
+	last if ($in =~ /q|/);
+
+	# Ignore all commands that expect more input in pianobar. Pretty much only
+	# leave transport controls, bookmarking, explanation and volume.
+	next if ($in =~ /h|s|r|g|a|c|d|j|m|x|b/);
+
+	if (my $fh = FileHandle->new("$ENV{HOME}/.config/pianobar/ctl", O_WRONLY|O_APPEND))
+	{
+		print "$in";
+		$fh->print("$in");
+		$fh->close
+	}
+	else
+	{
+		die "Couldn't open fifo: $!";
+	}
 }
+
+ReadMode 0;
