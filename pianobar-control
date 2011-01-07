@@ -22,8 +22,18 @@ sub safe_exit
 ReadMode 4;
 while (my $in = ReadKey(0))
 {
-	# Exit this program on ^D or q
-	last if ($in =~ /q|/);
+	# Exit this program on C-C, C-D or q
+	my $c = ord($in);
+	last if (
+		# C-D
+		$c == 4
+			or
+		# C-C
+		$c == 3
+			or
+		# 'q'
+		$c == 113
+	);
 
 	# Ignore all commands that expect more input in pianobar. Pretty much only
 	# leave transport controls, bookmarking, explanation and volume.
