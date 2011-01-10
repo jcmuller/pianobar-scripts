@@ -6,14 +6,14 @@ use FileHandle;
 use Term::ReadKey;
 
 $0 = 'pianobar-control';
-$SIG{'INT'} = \&safe_exit;
-$SIG{'TERM'} = \&safe_exit;
-$SIG{'HUP'} = \&safe_exit;
-$SIG{'QUIT'} = \&safe_exit;
-$SIG{__DIE__}  = \&safe_exit;
+$SIG{'INT'}   = \&safe_exit;
+$SIG{'TERM'}  = \&safe_exit;
+$SIG{'HUP'}   = \&safe_exit;
+$SIG{'QUIT'}  = \&safe_exit;
+$SIG{__DIE__} = \&safe_exit;
 END { safe_exit(); }
 
-sub safe_exit
+sub safe_exit()
 {
 	ReadMode 0;
 	exit(@_);
@@ -52,4 +52,4 @@ while (my $in = ReadKey(0))
 
 }
 
-safe_exit();
+safe_exit;
