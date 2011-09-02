@@ -10,7 +10,7 @@ class GetLyrics
 
   def read_current_file
     File.open("/tmp/current_song", 'r') do |f|
-      @current_file = f.gets.strip
+      @current_file = f.gets.strip.gsub(/ - /, ' ')
     end
   end
 
