@@ -20,4 +20,4 @@ class GetLyrics
 end
 
 #system "open 'http://google.com/search?q=#{GetLyrics.new.current_file})+lyrics&btnI=I%27m+Feeling+Lucky'"
-system "open 'http://google.com/search?q=#{GetLyrics.new.current_file})+lyrics'"
+system "open 'http://google.com/search?q=#{GetLyrics.new.current_file}+lyrics'"
