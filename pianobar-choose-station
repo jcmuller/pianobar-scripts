@@ -5,11 +5,10 @@
 # print $sfh "$1. $2\n" if (/station(\d+)=(.+)$/);
 # into /tmp/pianobar_stations
 
+LINE=$(fgrep playing /tmp/pianobar_stations | sed -e 's/\([0-9]\+\)\..*/\1/')
+
 STATION=$(cat /tmp/pianobar_stations | \
-	dmenu -nf '#888888' -nb '#222222' -sf '#ffffff' -i \
-	-sb '#285577' -p 'choose station:' | \
+	dmenu -p "Station: " -lines 20 -levenshtein-sort -l $LINE | \
 	sed -e 's/\([0-9]\+\)\..*/\1/')
 
-
 [[ -n $STATION ]] && echo "s$STATION" > ~/.config/pianobar/ctl
-
